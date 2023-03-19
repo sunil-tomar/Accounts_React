@@ -1,0 +1,10 @@
+.no-page{
+    background-image: url('../../assets/img/404-rocket-ship.jpg');
+    /* background-image: url('../../assets/img/404_error.webp'); 
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;*/
+    height: 40rem;
+    width: 100rem;
+}

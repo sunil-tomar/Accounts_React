@@ -1,0 +1,1 @@
+This is Accounts App, for calcualting all the monthly expanses.

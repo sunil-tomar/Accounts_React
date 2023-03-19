@@ -1,0 +1,9 @@
+.home-container1{
+    background-image: url('../../assets/img/siver-welcome-on-banner.webp');
+    height: 50rem;
+    width: 100rem;
+    background-repeat: no-repeat;
+}
+.title_head{
+    text-align: center;
+}

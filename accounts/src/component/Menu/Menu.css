@@ -1,0 +1,17 @@
+.menu-items{
+    text-align: right;
+    background: yellowgreen;
+    line-height: 40px;
+}
+
+.menu-items > a{
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 3px;
+    font-style: italic
+}
+.mb-50{
+    margin-bottom: 50px;
+}
