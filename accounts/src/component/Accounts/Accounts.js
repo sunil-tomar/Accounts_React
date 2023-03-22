@@ -49,7 +49,7 @@ componentDidMount(){
           <tr>
           <td></td>
           <td></td>
-          <td style={{'font-size':'2rem', 'text-align':'right'}}><b>Total Amount : 200000</b></td>
+          <td style={{'fontSize':'2rem', 'textAlign':'right'}}><b>Total Amount : 200000</b></td>
           </tr>
        </tbody>
      </Table> 
@@ -84,5 +84,11 @@ export default Accounts;
 
 const addExpanse=()=>{
   console.log("AddExpanse");
-  alert("Hi Add");
+  //alert("Hi Add");
+return addExpanseModalForm;
+}
+
+const addExpanseModalForm=()=>{
+  console.log("hey modal open.");
+ alert("hey modal open..");
 }
