@@ -5,26 +5,21 @@ import DateObject from "react-date-object";
 import React, {expanses, list, useState, useEffect} from 'react';
 
 class Accounts extends React.Component {
-constructor(){
+
+ constructor(){
   super();
   this.state = {
-    name : "react", items: [
-      {
-        id: 1,
-        paidFor: "Suraj",
-        amount: "10000",
-        createdTime: "1679159469870"
-      },
-      {
-        id: 12,
-        paidFor: "Sunil",
-        amount: "2000000",
-        createdTime: "1679159469870"
-      },
-     ]
-  };
+     items: [ {  id: 1,  paidFor: "Suraj",  amount: "10000",  createdTime: "1679159469870" }, {  id: 12, paidFor: "Sunil",  amount: "2000000", createdTime: "1679159469870" },  ],
+     isLoaded:false,
+     error:"",
+     countCall:0  
+    };
 }
-
+componentDidMount(){
+  //call api for fetching Data.
+  console.log("api call");
+  //this.fetchAccountsData();
+}
   render() {
     //return template.call(this);
     return <div>
@@ -50,12 +45,34 @@ constructor(){
          </tr>
           ))} 
        </tbody>
-          <hr/>
-          <h4>Total Amount : 200000</h4> 
      </Table>
+        <br/>
+        <h4>Total Amount : 200000</h4> 
      </div></center>
   </div>;
   }
+
+
+   fetchAccountsData=()=>{
+    axios.get(`http://localhost:9050/monthly-expense/fetch-all`)
+       .then((result) => {
+           //setIsLoaded(true);
+          // console.log(result);
+           //console.log((new DateObject(1678092003000)).format());
+           let resObj=result.data.data;
+           let monthlyExpenseList =resObj["monthly-expanses-list"]; 
+           this.setState({ countCall: this.state.countCall+1 ,isLoaded : true, items: [...monthlyExpenseList] });
+           let itemsList=this.state.items;
+          // debugger;
+          console.log(" total calls : "+this.state.countCall);
+         },
+         (error) => {
+           console.error("Please check service is Down :"+error);
+           this.setState({isLoaded : true , error : error});
+         }
+       )
+  }
+
 }
 
 export default Accounts;
