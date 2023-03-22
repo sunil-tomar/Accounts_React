@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import DateObject from "react-date-object";
 import React, {expanses, list, useState, useEffect} from 'react';
+import { Button } from 'react-bootstrap';
 
 class Accounts extends React.Component {
 
@@ -26,6 +27,7 @@ componentDidMount(){
      <h2 className="title_head">Hi Accounts Page welcomes you</h2>
     <center>
      <div className="accounts-table-div">
+     <span > <Button onClick={addExpanse}>New BTN</Button>  </span>
       <Table id="accounts-table"striped bordered hover>
        <thead>
          <tr>
@@ -44,10 +46,13 @@ componentDidMount(){
          <td>{new DateObject(item.createdTime).format("YYYY-MM-dd hh:mm a") }</td>
          </tr>
           ))} 
+          <tr>
+          <td></td>
+          <td></td>
+          <td style={{'font-size':'2rem', 'text-align':'right'}}><b>Total Amount : 200000</b></td>
+          </tr>
        </tbody>
-     </Table>
-        <br/>
-        <h4>Total Amount : 200000</h4> 
+     </Table> 
      </div></center>
   </div>;
   }
@@ -76,3 +81,8 @@ componentDidMount(){
 }
 
 export default Accounts;
+
+const addExpanse=()=>{
+  console.log("AddExpanse");
+  alert("Hi Add");
+}
