@@ -1,8 +1,8 @@
-import template from "./Accounts.jsx";
+//import template from "./Accounts.jsx";
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import DateObject from "react-date-object";
-import React, {expanses, list, useState, useEffect} from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 
 class Accounts extends React.Component {
@@ -13,21 +13,29 @@ class Accounts extends React.Component {
      items: [ {  id: 1,  paidFor: "Suraj",  amount: "10000",  createdTime: "1679159469870" }, {  id: 12, paidFor: "Sunil",  amount: "2000000", createdTime: "1679159469870" },  ],
      isLoaded:false,
      error:"",
-     countCall:0  
+     countCall:0,
+     totoalAmount:0  
     };
 }
 componentDidMount(){
   //call api for fetching Data.
   console.log("api call");
-  //this.fetchAccountsData();
+  this.fetchAccountsData();
 }
+
+ addExpanse=()=>{
+  console.log("AddExpanse");
+  //alert("Hi Add");
+return(<div><h2>Hi All</h2></div>);
+}
+
   render() {
     //return template.call(this);
     return <div>
      <h2 className="title_head">Hi Accounts Page welcomes you</h2>
     <center>
      <div className="accounts-table-div">
-     <span > <Button onClick={addExpanse}>New BTN</Button>  </span>
+     <span > <Button onClick={this.addExpanse}>New BTN</Button>  </span>
       <Table id="accounts-table"striped bordered hover>
        <thead>
          <tr>
@@ -49,7 +57,7 @@ componentDidMount(){
           <tr>
           <td></td>
           <td></td>
-          <td style={{'fontSize':'2rem', 'textAlign':'right'}}><b>Total Amount : 200000</b></td>
+          <td style={{'fontSize':'2rem', 'textAlign':'right'}}><b>Total Amount : { (this.state.items.reduce((total, item)=>total+item.amount, 0)) }</b></td>
           </tr>
        </tbody>
      </Table> 
@@ -67,11 +75,12 @@ componentDidMount(){
            let resObj=result.data.data;
            let monthlyExpenseList =resObj["monthly-expanses-list"]; 
            this.setState({ countCall: this.state.countCall+1 ,isLoaded : true, items: [...monthlyExpenseList] });
-           let itemsList=this.state.items;
+           //let itemsList=this.state.items;
           // debugger;
           console.log(" total calls : "+this.state.countCall);
          },
          (error) => {
+           //alert(error);
            console.error("Please check service is Down :"+error);
            this.setState({isLoaded : true , error : error});
          }
@@ -82,11 +91,6 @@ componentDidMount(){
 
 export default Accounts;
 
-const addExpanse=()=>{
-  console.log("AddExpanse");
-  //alert("Hi Add");
-return addExpanseModalForm;
-}
 
 const addExpanseModalForm=()=>{
   console.log("hey modal open.");
