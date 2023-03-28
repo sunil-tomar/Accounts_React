@@ -4,13 +4,15 @@ import axios from 'axios';
 import DateObject from "react-date-object";
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import {data_fetch_account_list} from './../../DataSet/DataSet';
+
 
 class Accounts extends React.Component {
 
  constructor(){
   super();
   this.state = {
-     items: [ {  id: 1,  paidFor: "Suraj",  amount: "10000",  createdTime: "1679159469870" }, {  id: 12, paidFor: "Sunil",  amount: "2000000", createdTime: "1679159469870" },  ],
+     items: data_fetch_account_list,//[ {  id: 1,  paidFor: "Suraj",  amount: "10000",  createdTime: "1679159469870" }, {  id: 12, paidFor: "Sunil",  amount: "2000000", createdTime: "1679159469870" },  ],
      isLoaded:false,
      error:"",
      countCall:0,
