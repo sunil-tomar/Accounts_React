@@ -39,9 +39,10 @@ handleSubmit = (event) => {
   const formData = {
     paidFor: data.get('paidFor'),
     amount: data.get('amount'),
-  };
-  fetch(//serverUrl+'monthly-expense/add',{
-       'http://localhost:9050/monthly-expense/add', {
+    };
+    console.log(formData);
+  //fetch(serverUrl+'monthly-expense/add',{
+  fetch('http://localhost:9050/monthly-expense/add', {
     method: 'POST',
     body: JSON.stringify(formData),
     headers: {
@@ -49,11 +50,13 @@ handleSubmit = (event) => {
     },
   })
   .then(response => response.json())
-  .then(data => {
-    debugger;
+  .then(resp => {
     //let saveedEnity=data.entity;
-    console.log(data);
-    this.setState({ isFormOpen: false, items : [this.state.items + data] });
+    console.log(resp);
+  //adding object in list.
+  debugger;
+  const obj=resp.data.entity;
+  this.state.items.push(obj);
   })
   .catch(error => console.error(error));
 };
