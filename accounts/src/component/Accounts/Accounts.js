@@ -3,14 +3,8 @@ import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import DateObject from "react-date-object";
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import {data_fetch_account_list} from './../../DataSet/DataSet';
-import ReactTable from "react-table-6";  
-import "react-table-6/react-table.css" 
-import { Form } from 'react-bootstrap';
-//Server URL 
-const serverUrl="http://localhost:9050/";
-
+import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE }   from '../../utils/URL_CONSTANT';
 class Accounts extends React.Component {
   
   constructor(props) {
@@ -25,58 +19,12 @@ class Accounts extends React.Component {
     };
 }
 
-handleToggleForm = () => {
-  console.log(" handleToggleForm ");
-  this.setState({ isFormOpen: !this.state.isFormOpen });
-};
-
-
-handleSubmit = (event) => {
-  console.log(" handleSubmit ");
-
-  event.preventDefault();
-  const data = new FormData(event.target);
-  const formData = {
-    paidFor: data.get('paidFor'),
-    amount: data.get('amount'),
-    };
-    console.log(formData);
-  //fetch(serverUrl+'monthly-expense/add',{
-  fetch('http://localhost:9050/monthly-expense/add', {
-    method: 'POST',
-    body: JSON.stringify(formData),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  .then(response => response.json())
-  .then(resp => {
-    //let saveedEnity=data.entity;
-    console.log(resp);
-  //adding object in list.
-  debugger;
-  const obj=resp.data.entity;
-  this.state.items.push(obj);
-  })
-  .catch(error => console.error(error));
-};
-
-
+//AUTO ON LOAD CALL FUNCTION.
 componentDidMount(){
   //call api for fetching Data.
   console.log("inactive api call");
   this.fetchAccountsData();
 } 
-
- addExpanse=()=>{
-  console.log("AddExpanse");
-  const newItem = { id: 400, paidFor: 'New User', amount: 400, createdTime: "1679159469870"};
-  console.log("adding newItem : ");
-  console.log(newItem);
-  this.setState({ items: [...this.state.items, newItem] });
-  //alert("Hi Add");
-  return(<div><h2>Hi All</h2></div>);
-}
 
 render() {
     //return template.call(this);
@@ -89,6 +37,7 @@ render() {
         <div className="form-popup">
           <form onSubmit={this.handleSubmit}>
             <input type="text" placeholder="Reason" name="paidFor" />
+
             <input type="text" placeholder="Money" name="amount" />
             <button type="submit">Submit</button>
             <button type="button" onClick={this.handleToggleForm}>Cancel</button>
@@ -119,7 +68,9 @@ render() {
           <tr>
           <td></td>
           <td></td>
-          <td style={{'fontSize':'2rem', 'textAlign':'right'}}><b>Total Amount : { (this.state.items.reduce((total, item)=>total+item.amount, 0)) }</b></td>
+          <td style={{'fontSize':'2rem', 'textAlign':'right'}}>
+          <b>Total Amount : {(this.state.items.reduce((total, item)=>total+item.amount, 0))}</b>
+          </td>
           </tr>
        </tbody>
      </Table>  
@@ -127,16 +78,14 @@ render() {
   </div>;
   }
 
-
+   //Fetch API for calling 
    fetchAccountsData=()=>{
-    axios.get(`http://localhost:9050/monthly-expense/fetch-all`)
+    axios.get(SERVER_URL+URL_FETCH_MONTHLY_EXPANSE)
        .then((result) => {
-           //setIsLoaded(true);
-          // console.log(result);
            //console.log((new DateObject(1678092003000)).format());
            let resObj=result.data.data;
            let monthlyExpenseList =resObj["monthly-expanses-list"]; 
-           this.setState({ countCall: this.state.countCall+1 ,isLoaded : true, items: [...monthlyExpenseList] });
+           this.setState({countCall:this.state.countCall+1, isLoaded:true, items:[...monthlyExpenseList]});
            //let itemsList=this.state.items;
           // debugger;
           console.log(" total calls : "+this.state.countCall);
@@ -148,13 +97,61 @@ render() {
          }
        )
   }
+  //FORM HANDLE.
+  handleToggleForm = () => {
+    console.log(" handleToggleForm ");
+    this.setState({ isFormOpen: !this.state.isFormOpen });
+  };
+  //FORM SUBIT.  
+  handleSubmit = (event) => {
+    console.log(" handleSubmit ");
+  
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const formData = {
+      paidFor: data.get('paidFor'),
+      amount: data.get('amount'),
+      createdTime: '1679159469870',
+      id: '4000'
+      };
+      console.log(formData);  
+    this.setState({items : this.state.items.push(formData)});
+  //FETCH-API URL.
+  fetch(SERVER_URL+URL_ADD_MONTHLY_EXPANSE, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => response.json())
+    .then(resp => {
+      //let saveedEnity=data.entity;
+      console.log(resp);
+    //adding object in list.
+    debugger;
+    const obj=resp.data.entity;
+    this.setState(this.state.items.push(obj));
+    })
+    .catch(error => console.error(error));
+  };
+  
 
+ addExpanse=()=>{
+  console.log("AddExpanse");
+  const newItem = { id: 400, paidFor: 'New User', amount: 400, createdTime: "1679159469870"};
+  console.log("adding newItem : ");
+  console.log(newItem);
+  this.setState({ items: [...this.state.items, newItem] });
+  //alert("Hi Add");
+  return(<div><h2>Hi All</h2></div>);
 }
 
-export default Accounts;
-
-
-const addExpanseModalForm=()=>{
+ addExpanseModalForm=()=>{
   console.log("hey modal open.");
    alert("hey modal open..");
 }
+
+  
+}
+export default Accounts;
