@@ -114,9 +114,10 @@ render() {
       createdTime: '1679159469870',
       id: '4000'
       };
-      console.log(formData);  
-    this.setState({items : this.state.items.push(formData)});
-  //FETCH-API URL.
+    console.log(formData);  
+    this.setState({items : this.state.items.concat(formData)});
+    alert(formData.paidFor + " added successfully!")
+    //FETCH-API URL.
   fetch(SERVER_URL+URL_ADD_MONTHLY_EXPANSE, {
       method: 'POST',
       body: JSON.stringify(formData),
