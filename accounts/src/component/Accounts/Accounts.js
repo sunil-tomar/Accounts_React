@@ -1,32 +1,66 @@
-import template from "./Accounts.jsx";
+//import template from "./Accounts.jsx";
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import DateObject from "react-date-object";
-import React, {expanses, list, useState, useEffect} from 'react';
+import React from 'react';
+import {data_fetch_account_list} from './../../DataSet/DataSet';
+import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE }   from '../../utils/URL_CONSTANT';
+// import $ from 'jquery';
+// import 'datatables.net-dt/css/jquery.dataTables.css';
+// import 'datatables.net-dt/js/jquery.dataTables';
 
 class Accounts extends React.Component {
-
- constructor(){
-  super();
-  this.state = {
-     items: [ {  id: 1,  paidFor: "Suraj",  amount: "10000",  createdTime: "1679159469870" }, {  id: 12, paidFor: "Sunil",  amount: "2000000", createdTime: "1679159469870" },  ],
-     isLoaded:false,
-     error:"",
-     countCall:0  
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: data_fetch_account_list,
+      isFormOpen: false,
+      isLoaded:false,
+      error:"",
+      countCall:0,
+      totoalAmount:0  
     };
 }
+
+//AUTO ON LOAD CALL FUNCTION.
 componentDidMount(){
   //call api for fetching Data.
-  console.log("api call");
-  //this.fetchAccountsData();
+  console.log("inactive api call");
+  this.fetchAccountsData();
+  // Initialize DataTables on the table using jQuery
+  //this.$el = $(this.el);
+  //this.$el.DataTable();
 }
-  render() {
+
+componentWillUnmount() {
+  // Destroy DataTables instance to prevent memory leaks
+  //this.$el.DataTable().destroy(true);
+}
+
+render() {
     //return template.call(this);
     return <div>
      <h2 className="title_head">Hi Accounts Page welcomes you</h2>
     <center>
      <div className="accounts-table-div">
-      <Table id="accounts-table"striped bordered hover>
+     <>
+      {this.state.isFormOpen &&
+        <div className="form-popup">
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="Reason" name="paidFor" />
+
+            <input type="text" placeholder="Money" name="amount" />
+            <button type="submit">Submit</button>
+            <button type="button" onClick={this.handleToggleForm}>Cancel</button>
+          </form>
+        </div>
+      }
+      <button onClick={this.handleToggleForm}>Add Expanse</button>
+    </>
+
+      <Table id="accounts-table" striped bordered hover>
+      {/* <Table id="accounts-table" striped bordered hover ref={el => this.el = el}> */}
        <thead>
          <tr>
            <th>#</th>
@@ -44,35 +78,94 @@ componentDidMount(){
          <td>{new DateObject(item.createdTime).format("YYYY-MM-dd hh:mm a") }</td>
          </tr>
           ))} 
+          <tr>
+          <td></td>
+          <td></td>
+          <td style={{'fontSize':'2rem', 'textAlign':'right'}}>
+          <b>Total Amount : {(this.state.items.reduce((total, item)=>total+item.amount, 0))}</b>
+          </td>
+          </tr>
        </tbody>
-     </Table>
-        <br/>
-        <h4>Total Amount : 200000</h4> 
+     </Table>  
      </div></center>
   </div>;
   }
 
-
+   //Fetch API for calling 
    fetchAccountsData=()=>{
-    axios.get(`http://localhost:9050/monthly-expense/fetch-all`)
+    axios.get(SERVER_URL+URL_FETCH_MONTHLY_EXPANSE)
        .then((result) => {
-           //setIsLoaded(true);
-          // console.log(result);
            //console.log((new DateObject(1678092003000)).format());
            let resObj=result.data.data;
            let monthlyExpenseList =resObj["monthly-expanses-list"]; 
-           this.setState({ countCall: this.state.countCall+1 ,isLoaded : true, items: [...monthlyExpenseList] });
-           let itemsList=this.state.items;
+           this.setState({countCall:this.state.countCall+1, isLoaded:true, items:[...monthlyExpenseList]});
+           //let itemsList=this.state.items;
           // debugger;
           console.log(" total calls : "+this.state.countCall);
          },
          (error) => {
+           //alert(error);
            console.error("Please check service is Down :"+error);
            this.setState({isLoaded : true , error : error});
          }
        )
   }
+  //FORM HANDLE.
+  handleToggleForm = () => {
+    console.log(" handleToggleForm ");
+    this.setState({ isFormOpen: !this.state.isFormOpen });
+  };
+  //FORM SUBIT.  
+  handleSubmit = (event) => {
+    console.log(" handleSubmit ");
+  
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const formData = {
+      paidFor: data.get('paidFor'),
+      amount: data.get('amount'),
+      createdTime: '1679159469870',
+      id: '4000'
+      };
+    console.log(formData);  
+    this.setState({items : this.state.items.concat(formData)});
+    alert(formData.paidFor + " added successfully!")
+    //FETCH-API URL.
+  fetch(SERVER_URL+URL_ADD_MONTHLY_EXPANSE, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => response.json())
+    .then(resp => {
+      //let saveedEnity=data.entity;
+      console.log(resp);
+    //adding object in list.
+    debugger;
+    const obj=resp.data.entity;
+    this.setState(this.state.items.push(obj));
+    })
+    .catch(error => console.error(error));
+  };
+  
 
+ addExpanse=()=>{
+  console.log("AddExpanse");
+  const newItem = { id: 400, paidFor: 'New User', amount: 400, createdTime: "1679159469870"};
+  console.log("adding newItem : ");
+  console.log(newItem);
+  this.setState({ items: [...this.state.items, newItem] });
+  //alert("Hi Add");
+  return(<div><h2>Hi All</h2></div>);
 }
 
+ addExpanseModalForm=()=>{
+  console.log("hey modal open.");
+   alert("hey modal open..");
+}
+
+  
+}
 export default Accounts;
