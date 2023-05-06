@@ -5,9 +5,9 @@ import DateObject from "react-date-object";
 import React from 'react';
 import {data_fetch_account_list} from './../../DataSet/DataSet';
 import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE }   from '../../utils/URL_CONSTANT';
-import $ from 'jquery';
-import 'datatables.net-dt/css/jquery.dataTables.css';
-import 'datatables.net-dt/js/jquery.dataTables';
+// import $ from 'jquery';
+// import 'datatables.net-dt/css/jquery.dataTables.css';
+// import 'datatables.net-dt/js/jquery.dataTables';
 
 class Accounts extends React.Component {
   
@@ -29,13 +29,13 @@ componentDidMount(){
   console.log("inactive api call");
   this.fetchAccountsData();
   // Initialize DataTables on the table using jQuery
-  this.$el = $(this.el);
-  this.$el.DataTable();
+  //this.$el = $(this.el);
+  //this.$el.DataTable();
 }
 
 componentWillUnmount() {
   // Destroy DataTables instance to prevent memory leaks
-  this.$el.DataTable().destroy(true);
+  //this.$el.DataTable().destroy(true);
 }
 
 render() {
@@ -59,7 +59,8 @@ render() {
       <button onClick={this.handleToggleForm}>Add Expanse</button>
     </>
 
-      <Table id="accounts-table"striped bordered hover ref={el => this.el = el}>
+      <Table id="accounts-table" striped bordered hover>
+      {/* <Table id="accounts-table" striped bordered hover ref={el => this.el = el}> */}
        <thead>
          <tr>
            <th>#</th>
