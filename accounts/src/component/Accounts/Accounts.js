@@ -4,11 +4,10 @@ import axios from 'axios';
 import DateObject from "react-date-object";
 import React from 'react';
 import {data_fetch_account_list} from './../../DataSet/DataSet';
-import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE }   from '../../utils/URL_CONSTANT';
+import {SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE} from '../../utils/URL_CONSTANT';
 // import $ from 'jquery';
 // import 'datatables.net-dt/css/jquery.dataTables.css';
 // import 'datatables.net-dt/js/jquery.dataTables';
-
 class Accounts extends React.Component {
   
   constructor(props) {
@@ -104,7 +103,7 @@ render() {
           console.log(" total calls : "+this.state.countCall);
          },
          (error) => {
-           //alert(error);
+           //warningAlertMsg(error);
            console.error("Please check service is Down :"+error);
            this.setState({isLoaded : true , error : error});
          }
@@ -118,18 +117,23 @@ render() {
   //FORM SUBIT.  
   handleSubmit = (event) => {
     console.log(" handleSubmit ");
-  
     event.preventDefault();
     const data = new FormData(event.target);
+    debugger;
     const formData = {
       paidFor: data.get('paidFor'),
-      amount: data.get('amount'),
+      amount: parseFloat(data.get('amount')),
       createdTime: '1679159469870',
       id: '4000'
       };
-    console.log(formData);  
+    console.log(formData);
+    let isValidData=validateFormData(formData);
+    if(!isValidData){
+    // it execute, when validation failed
+      return;
+    }
     this.setState({items : this.state.items.concat(formData)});
-    alert(formData.paidFor + " added successfully!")
+    warningAlertMsg(formData.paidFor + " - of Rs : "+formData.amount+ " added successfully!")
     //FETCH-API URL.
   fetch(SERVER_URL+URL_ADD_MONTHLY_EXPANSE, {
       method: 'POST',
@@ -143,29 +147,44 @@ render() {
       //let saveedEnity=data.entity;
       console.log(resp);
     //adding object in list.
-    debugger;
+    //debugger;
     const obj=resp.data.entity;
     this.setState(this.state.items.push(obj));
     })
     .catch(error => console.error(error));
   };
   
-
  addExpanse=()=>{
   console.log("AddExpanse");
   const newItem = { id: 400, paidFor: 'New User', amount: 400, createdTime: "1679159469870"};
   console.log("adding newItem : ");
   console.log(newItem);
   this.setState({ items: [...this.state.items, newItem] });
-  //alert("Hi Add");
+  //warningAlertMsg("Hi Add");
   return(<div><h2>Hi All</h2></div>);
 }
 
  addExpanseModalForm=()=>{
   console.log("hey modal open.");
-   alert("hey modal open..");
-}
+   warningAlertMsg("hey modal open..");
+ }
 
-  
 }
 export default Accounts;
+
+const validateFormData = (formObj) => {
+  let paidFor=formObj.paidFor;
+  let amount=formObj.amount;
+  if(paidFor.length<1){
+    warningAlertMsg("Please Provide Reason in Words(3 to 100 char long)");
+    return false;
+  }else if(isNaN(amount) || amount<1){
+    warningAlertMsg("Please Provide Amount in Rupees(Zero Amount is Not valid)");  
+    return false;
+  }
+  return true;
+}
+
+const warningAlertMsg=(errorMsg)=>{
+  alert(errorMsg);
+}
