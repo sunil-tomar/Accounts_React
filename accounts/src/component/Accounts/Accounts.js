@@ -5,9 +5,7 @@ import DateObject from "react-date-object";
 import React from 'react';
 import {data_fetch_account_list} from './../../DataSet/DataSet';
 import {SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE} from '../../utils/URL_CONSTANT';
-// import $ from 'jquery';
-// import 'datatables.net-dt/css/jquery.dataTables.css';
-// import 'datatables.net-dt/js/jquery.dataTables';
+
 class Accounts extends React.Component {
   
   constructor(props) {
@@ -26,15 +24,12 @@ class Accounts extends React.Component {
 componentDidMount(){
   //call api for fetching Data.
   console.log("inactive api call");
+  //debugger
   this.fetchAccountsData();
-  // Initialize DataTables on the table using jQuery
-  //this.$el = $(this.el);
-  //this.$el.DataTable();
 }
 
 componentWillUnmount() {
-  // Destroy DataTables instance to prevent memory leaks
-  //this.$el.DataTable().destroy(true);
+//you code.
 }
 
 render() {
@@ -73,7 +68,7 @@ render() {
          <tr key={item.id}>
          <td>{(i+1)}</td>
          <td>{item.paidFor}</td>
-         <td>{item.amount}</td>
+         <td><b>{parseFloat(item.amount).toFixed(2)}</b></td>
          <td>{new DateObject(item.createdTime).format("YYYY-MM-dd hh:mm a") }</td>
          </tr>
           ))} 
