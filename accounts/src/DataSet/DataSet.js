@@ -1,0 +1,28 @@
+
+export const data_fetch_account_list = [
+    { id: 1, paidFor: "Office Supplies", amount: 50.00, createdTime: "1679159469870"},
+    { id: 2, paidFor: "Client Lunch", amount: 75.25, createdTime: "1679159469870"},
+    { id: 3, paidFor: "Travel Expenses", amount: 250.00, createdTime: "1679159469870"},
+    { id: 4, paidFor: "Internet Service", amount: 75.00, createdTime: "1679159469870"},
+    { id: 5, paidFor: "Conference Registration", amount: 500.00, createdTime: "1679159469870"},
+    { id: 6, paidFor: "Printing Services", amount: 120.50, createdTime: "1679159469870"},
+    { id: 7, paidFor: "Advertising Costs", amount: 350.00, createdTime: "1679159469870"},
+    { id: 8, paidFor: "Equipment Rental", amount: 200.00, createdTime: "1679159469870"},
+    { id: 9, paidFor: "Training Materials", amount: 80.00, createdTime: "1679159469870"},
+    { id: 10, paidFor: "Business Meals", amount: 120.00, createdTime: "1679159469870"},
+    { id: 11, paidFor: "Tax Preparation Services", amount: 300.00, createdTime: "1679159469870"},
+    { id: 12, paidFor: "Parking Fees", amount: 35.00, createdTime: "1679159469870"},
+    { id: 13, paidFor: "Business Insurance", amount: 150.00, createdTime: "1679159469870"},
+    { id: 14, paidFor: "Vehicle Expenses", amount: 120.00, createdTime: "1679159469870"},
+    { id: 15, paidFor: "Software Licenses", amount: 250.00, createdTime: "1679159469870"},
+    { id: 16, paidFor: "Telephone Service", amount: 60.00, createdTime: "1679159469870"},
+    { id: 17, paidFor: "Consulting Fees", amount: 400.00, createdTime: "1679159469870"},
+    { id: 18, paidFor: "Travel Accommodations", amount: 500.00, createdTime: "1679159469870"},
+    { id: 19, paidFor: "Entertainment Expenses", amount: 150.00, createdTime: "1679159469870"},
+    { id: 20, paidFor: "Office Rent", amount: 1000.00, createdTime: "1679159469870"},
+    { id: 21, paidFor: "Office Maintenance", amount: 80.00, createdTime: "1679159469870"},
+    { id: 22, paidFor: "Legal Services", amount: 500.00, createdTime: "1679159469870"},
+    { id: 23, paidFor: "Employee Training", amount: 400.00, createdTime: "1679159469870"},
+    { id: 24, paidFor: "Website Hosting", amount: 100.00, createdTime: "1679159469870"},
+    { id: 25, paidFor: "Professional Memberships", amount: 50.00, createdTime: "1679159469870"}
+  ];

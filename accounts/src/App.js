@@ -13,11 +13,13 @@ export default function App() {
   return (
 <BrowserRouter>
       <div className="app-header">
-      <Link to="/">Home </Link>
-      <Link to="/accounts">Accounts </Link>
-      <Link to="/about">About </Link>
-      <Link to="/contact">Contact </Link>
-      </div>
+        <ul>
+        <li><Link to="/">Home </Link></li>
+        <li> <Link to="/accounts">Accounts </Link></li>
+        <li><Link to="/about">About </Link></li>
+        <li> <Link to="/contact">Contact </Link></li>
+        </ul>
+      </div> 
   <Routes >
            {printUrl(window.location.pathname)} 
           <Route path="/"  element={<Home />}/>
@@ -28,7 +30,19 @@ export default function App() {
           <Route path="/nopage" element={<NoPage />} />
           {/* <Route index  element={<About />} /> */}
       </Routes>
+
+  <div className="app-footer">
+  <hr/>
+  <h2>Footer </h2>
+        {/* <ul>
+        <li><Link to="/">Home </Link></li>
+        <li> <Link to="/accounts">Accounts </Link></li>
+        <li><Link to="/about">About </Link></li>
+        <li> <Link to="/contact">Contact </Link></li>
+        </ul> */}
+      </div> 
     </BrowserRouter>
+  
   );
 }
 
