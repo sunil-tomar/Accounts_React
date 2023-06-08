@@ -75,7 +75,7 @@ class Accounts extends React.Component {
                 <td></td>
                 <td></td>
                 <td style={{ 'fontSize': '2rem', 'textAlign': 'right' }}>
-                  <b>Total Amount : {(this.state.items.reduce((total, item) => total + item.amount, 0))}</b>
+                  <b>Total Amount : {(this.state.items.reduce((total, item) => total + item.amount, 0)).toFixed(2)}</b>
                 </td>
               </tr>
             </tbody>
