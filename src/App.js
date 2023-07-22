@@ -12,35 +12,24 @@ export default function App() {
   //App.js
   return (
 <BrowserRouter>
-      <div className="app-header">
-        <ul>
-        <li><Link to="/">Home </Link></li>
-        <li> <Link to="/accounts">Accounts </Link></li>
-        <li><Link to="/about">About </Link></li>
-        <li> <Link to="/contact">Contact </Link></li>
-        </ul>
-      </div> 
-  <Routes >
-           {printUrl(window.location.pathname)} 
-          <Route path="/"  element={<Home />}/>
-          <Route path="/home" element={<Home />} />
-          <Route path="/accounts" element={<Accounts />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/nopage" element={<NoPage />} />
-          {/* <Route index  element={<About />} /> */}
-      </Routes>
+    
+    {header()} 
 
-  <div className="app-footer">
-  <hr/>
-  <h2>Footer </h2>
-        {/* <ul>
-        <li><Link to="/">Home </Link></li>
-        <li> <Link to="/accounts">Accounts </Link></li>
-        <li><Link to="/about">About </Link></li>
-        <li> <Link to="/contact">Contact </Link></li>
-        </ul> */}
-      </div> 
+
+      <Routes>
+            {printUrl(window.location.pathname)} 
+            <Route path="/"  element={<Home />}/>
+            <Route path="/home" element={<Home />} />
+            <Route path="/accounts" element={<Accounts />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/nopage" element={<NoPage />} />
+            {/* <Route index  element={<About />} /> */}
+        </Routes>
+
+    
+   {footer()}
+
     </BrowserRouter>
   
   );
@@ -50,3 +39,23 @@ const printUrl=(pathname)=>{
     console.log("hit  pathname: "+pathname);
   }
 
+  const header=()=>{
+   return <div className="app-header">
+            <ul>
+            <li><Link to="/">Home </Link></li>
+            <li> <Link to="/accounts">Accounts </Link></li>
+            <li><Link to="/about">About </Link></li>
+            <li> <Link to="/contact">Contact </Link></li>
+            </ul>
+        </div>
+  }
+
+
+  const footer=()=>{
+    return  <div className="app-footer">
+             <center>
+                <b> Copyright reserve to <a href='/www.youngtiger.com'  target="_blank">www.youngtiger.com</a>
+                </b>
+              </center>
+        </div> 
+  }

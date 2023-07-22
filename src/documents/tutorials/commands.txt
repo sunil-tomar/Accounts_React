@@ -1,0 +1,3 @@
+#create component
+npx create-react-component <COMPONENT-NAME>
+
