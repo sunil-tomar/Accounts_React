@@ -1,5 +1,5 @@
 import React from "react";
-import template from "./Menu.js";
+//import template from "./Menu.js";
 
 class Menu extends React.Component {
   render() {

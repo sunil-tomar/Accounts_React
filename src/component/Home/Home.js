@@ -1,5 +1,5 @@
 import React    from "react";
-import template from "./Home.js";
+//import template from "./Home.js";
 import './Home.css';
 
 class Home extends React.Component {

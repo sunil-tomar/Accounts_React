@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DataTable from 'react-data-table-component';
-import template from "./About.jsx";
+import { data_fetch_account_list } from './../../DataSet/DataSet';
+//import template from "./About.jsx";
 
 class About extends React.Component {
 
@@ -8,14 +9,15 @@ class About extends React.Component {
     searchText: '',
   };
 
-  data = [
+/*  data = [
     { id: 1, name: 'John Doe', age: 25, email: 'johndoe@example.com' },
     { id: 2, name: 'Jane Smith', age: 32, email: 'janesmith@example.com' },
     { id: 3, name: 'Bob Johnson', age: 41, email: 'bobjohnson@example.com' },
     // Add more data objects as needed
-  ];
+  ]; */
+  data=data_fetch_account_list;
 
-  columns = [
+  /*columns = [
     {
       name: 'ID',
       selector: 'id',
@@ -37,6 +39,30 @@ class About extends React.Component {
       sortable: true,
     },
   ];
+ */ 
+  columns=[
+    {
+      name: 'ID',
+      selector: 'id',
+      sortable: true,
+    },
+    {
+      name: 'Paid For',
+      selector: 'paidFor',
+      sortable: true,
+    },
+    {
+      name: 'Amount',
+      selector: 'amount',
+      sortable: true,
+    },
+    {
+      name: 'Time',
+      selector: 'createdTime',
+      sortable: true,
+    },
+  
+  ]
 
   handleSearch = (event) => {
     this.setState({ searchText: event.target.value });

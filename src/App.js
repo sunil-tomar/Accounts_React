@@ -5,6 +5,7 @@ import Home from "./component/Home";
 import About from "./component/About";
 import Contact from "./component/Contact";
 import Accounts from "./component/Accounts";
+import Product from "./component/Product";
 import NoPage from "./component/NoPage";
 
 
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/"  element={<Home />}/>
             <Route path="/home" element={<Home />} />
             <Route path="/accounts" element={<Accounts />} />
+            <Route path="/product" element={<Product />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/nopage" element={<NoPage />} />
@@ -44,6 +46,7 @@ const printUrl=(pathname)=>{
             <ul>
             <li><Link to="/">Home </Link></li>
             <li> <Link to="/accounts">Accounts </Link></li>
+            <li> <Link to="/product">Product </Link></li>
             <li><Link to="/about">About </Link></li>
             <li> <Link to="/contact">Contact </Link></li>
             </ul>

@@ -1,5 +1,5 @@
 import React    from "react";
-import template from "./Contact.jsx";
+//import template from "./Contact.jsx";
 
 class Contact extends React.Component {
   render() {

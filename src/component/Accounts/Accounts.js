@@ -35,7 +35,7 @@ class Accounts extends React.Component {
   render() {
     //return template.call(this);
     return <div>
-      <h2 className="title_head">Hi Accounts Page welcomes you</h2>
+      <h2 className="title_head">Monthly Expanses(Spendings)</h2>
       <center>
         <div className="accounts-table-div">
           <>
