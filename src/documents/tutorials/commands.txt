@@ -1,3 +1,5 @@
 #create component
 npx create-react-component <COMPONENT-NAME>
 
+#Ubuntu Download Images from Internet via file URLS.
+ xargs -n 1 curl -O < productimagelist.txt

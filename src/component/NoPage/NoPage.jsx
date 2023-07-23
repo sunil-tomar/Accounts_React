@@ -1,7 +1,5 @@
 import "./NoPage.css";
 import React from "react";
-import error_404_jpg from '../../assets/img/404.jpg';
-import error_404_webp from "../../assets/img/404_error.webp"
 
 function template() {
   return (

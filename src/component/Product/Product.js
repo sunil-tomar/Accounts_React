@@ -16,9 +16,10 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
+import {PRODUCT_IMG_URL} from '../../utils/URL_CONSTANT';
 //import { FileUpload } from 'primereact/fileupload';
 
-export default function ProductsDemo() {
+export default function Product() {
   let emptyProduct = {
       id: null,
       name: '',
@@ -251,7 +252,7 @@ export default function ProductsDemo() {
   
    
   const imageBodyTemplate = (rowData) => {
-    return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
+    return <img src={PRODUCT_IMG_URL+`/${rowData.image}`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
   };
   
   const priceBodyTemplate = (rowData) => {
