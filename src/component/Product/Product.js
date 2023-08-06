@@ -273,7 +273,8 @@ export default function Product() {
           <Toast ref={toast} />
           <div className="card">
               <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
-              <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+              <DataTable ref={dt} value={products} selection={selectedProducts} 
+                    onSelectionChange={(e) => setSelectedProducts(e.value)}
                     dataKey="id"  paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" globalFilter={globalFilter}

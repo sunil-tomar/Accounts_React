@@ -49,6 +49,7 @@ const printUrl=(pathname)=>{
             <li> <Link to="/product">Product </Link></li>
             <li><Link to="/about">About </Link></li>
             <li> <Link to="/contact">Contact </Link></li>
+            <li> <Link to="/QnA">Exam </Link></li>
             </ul>
         </div>
   }

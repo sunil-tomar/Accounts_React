@@ -1,10 +1,20 @@
 //import template from "./Accounts.jsx";
+import "./Accounts.css";
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import DateObject from "react-date-object";
 import React from 'react';
 import { data_fetch_account_list } from './../../DataSet/DataSet';
 import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE } from '../../utils/URL_CONSTANT';
+import 'datatables.net-responsive-dt';
+import DataTable from 'datatables.net-dt';
+ 
+let table = new DataTable('#accounts_table', {
+  retrieve: true, 
+  responsive: true
+});
+table.destroy();
+    
 
 class Accounts extends React.Component {
 
@@ -25,7 +35,7 @@ class Accounts extends React.Component {
     //call api for fetching Data.
     console.log("inactive api call");
     //debugger
-    this.fetchAccountsData();
+    //this.fetchAccountsData();
   }
 
   componentWillUnmount() {
@@ -33,10 +43,10 @@ class Accounts extends React.Component {
   }
 
   render() {
-    //return template.call(this);
-    return <div>
+    //return template.call(this);  
+    return <div className='accounts-body-div'>
       <h2 className="title_head">Monthly Expanses(Spendings)</h2>
-      <center>
+      <center> 
         <div className="accounts-table-div">
           <>
             {this.state.isFormOpen &&
@@ -53,7 +63,7 @@ class Accounts extends React.Component {
             <button onClick={this.handleToggleForm}>Add Expanse</button>
           </>
 
-          <Table id="accounts-table" striped bordered hover>
+          <Table id="accounts_table" striped bordered hover> 
             <thead>
               <tr>
                 <th>#</th>
@@ -77,12 +87,13 @@ class Accounts extends React.Component {
                 <td style={{ 'fontSize': '2rem', 'textAlign': 'right' }}>
                   <b>Total Amount : {(this.state.items.reduce((total, item) => total + item.amount, 0)).toFixed(2)}</b>
                 </td>
+                <td></td> 
               </tr>
             </tbody>
           </Table>
         </div></center>
     </div>;
-  }
+}
 
   //Fetch API for calling 
   fetchAccountsData = () => {
