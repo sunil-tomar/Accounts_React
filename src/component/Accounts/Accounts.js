@@ -5,7 +5,7 @@ import axios from 'axios';
 import DateObject from "react-date-object";
 import React from 'react';
 import { data_fetch_account_list } from './../../DataSet/DataSet';
-import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE } from '../../utils/URL_CONSTANT';
+import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE, URL_FETCH_NEXT_CHUNK_MONTHLY_EXPANSE } from '../../utils/URL_CONSTANT';
 import 'datatables.net-responsive-dt';
 import DataTable from 'datatables.net-dt';
  
@@ -35,7 +35,7 @@ class Accounts extends React.Component {
     //call api for fetching Data.
     console.log("inactive api call");
     //debugger
-    //this.fetchAccountsData();
+    this.fetchAccountsData();
   }
 
   componentWillUnmount() {
@@ -97,11 +97,11 @@ class Accounts extends React.Component {
 
   //Fetch API for calling 
   fetchAccountsData = () => {
-    axios.get(SERVER_URL + URL_FETCH_MONTHLY_EXPANSE)
+    axios.get(SERVER_URL + URL_FETCH_NEXT_CHUNK_MONTHLY_EXPANSE+"/0/20" )
       .then((result) => {
         //console.log((new DateObject(1678092003000)).format());
         let resObj = result.data.data;
-        let monthlyExpenseList = resObj["monthly-expanses-list"];
+        let monthlyExpenseList = resObj["entity-list"];
         this.setState({ countCall: this.state.countCall + 1, isLoaded: true, items: [...monthlyExpenseList] });
         //let itemsList=this.state.items;
         // debugger;
@@ -124,12 +124,12 @@ class Accounts extends React.Component {
     console.log(" handleSubmit ");
     event.preventDefault();
     const data = new FormData(event.target);
-    debugger;
+    //debugger;
     const formData = {
       paidFor: data.get('paidFor'),
       amount: parseFloat(data.get('amount')),
       createdTime: '1679159469870',
-      id: '4000'
+      id: Math.floor((Math.random() * 100) + 1)
     };
     console.log(formData);
     let isValidData = validateFormData(formData);
@@ -138,7 +138,6 @@ class Accounts extends React.Component {
       return;
     }
     this.setState({ items: this.state.items.concat(formData) });
-    warningAlertMsg(formData.paidFor + " - of Rs : " + formData.amount + " added successfully!")
     //FETCH-API URL.
     fetch(SERVER_URL + URL_ADD_MONTHLY_EXPANSE, {
       method: 'POST',
@@ -146,17 +145,27 @@ class Accounts extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-      .then(response => response.json())
+    }).then(response => response.json())
       .then(resp => {
         //let saveedEnity=data.entity;
         console.log(resp);
         //adding object in list.
         //debugger;
-        const obj = resp.data.entity;
-        this.setState(this.state.items.push(obj));
+        if(resp.success==false){
+          warningAlertMsg(resp.message)
+          return;
+        }else {
+        const obj = resp.data;
+        let itemList=this.state.items;
+        itemList.push(obj);
+        this.setState(itemList);
+        warningAlertMsg(formData.paidFor + " - of Rs : " + formData.amount + " added successfully!")
+        }
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error)
+        warningAlertMsg("Error! : " + error);
+      });
   };
 
   addExpanse = () => {

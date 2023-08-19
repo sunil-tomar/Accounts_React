@@ -6,3 +6,8 @@ npx create-react-component <COMPONENT-NAME>
 
  #Start App 
  npm start
+
+ #install node package
+ npm install
+
+ 
