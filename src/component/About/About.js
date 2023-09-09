@@ -1,7 +1,6 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import { data_fetch_account_list } from './../../DataSet/DataSet';
-//import template from "./About.jsx";
 
 class About extends React.Component {
 
