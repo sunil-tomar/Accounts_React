@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link} from "react-router-dom";
 import Home from "./component/Home";
@@ -7,18 +7,32 @@ import Contact from "./component/Contact";
 import Accounts from "./component/Accounts";
 import Product from "./component/Product";
 import NoPage from "./component/NoPage";
+import Login from './component/Dashboard/Login/Login';
 
 
 export default function App() {
   //App.js
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
+    // Function to handle successful login
+    const handleLogin = () => {
+      // Perform authentication logic here && If authentication is successful, set isLoggedIn to true
+      setIsLoggedIn(true);
+    };
+
+    
   return (
 <BrowserRouter>
     
     {header()} 
+    
 
 
+{!isLoggedIn ? (
+        <Login onLogin={handleLogin} />
+      ) : (
       <Routes>
-            {printUrl(window.location.pathname)} 
+            {/* {printUrl(window.location.pathname)}  */}
             <Route path="/"  element={<Home />}/>
             <Route path="/home" element={<Home />} />
             <Route path="/accounts" element={<Accounts />} />
@@ -29,6 +43,8 @@ export default function App() {
             {/* <Route index  element={<About />} /> */}
         </Routes>
 
+
+      )}
     
    {footer()}
 

@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import './Login.css'
 
-function Login() {
+function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // Simulate authentication logic (replace with your actual authentication)
     // You can add your login logic here
     if (username === 'sunil' && password === 'test') {
-      alert('Login successful');
+      alert('Login successful'); setError('');
+      // Call the onLogin callback to notify the parent component of the successful login
+      onLogin();
     } else {
-      alert('Login failed. Please check your credentials.');
+      alert('Login failed. Please check your credentials.'); 
+      setError('Invalid username or password. Please try again.');
     }
   };
 
