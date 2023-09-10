@@ -10,19 +10,17 @@ function Login({ onLogin }) {
   const [error, setError] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+  //{"success":true,"rc":"0","data":{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdW5pbCIsImV4cCI6MTY5NDM4NDE3MywiaWF0IjoxNjk0MzY2MTczfQ.XYnVwrceQE3hHruYkTVq4VDBHNKS2auX-cRcx9AtafoJYAV_3fDu16KYu92kgwASDQmM4r1w1sa2BPa-g_OYKA"}}
      const serverLogin = () => {
         const BASEURL = "http://localhost:5050/mastertemplate/api/user/restapi-login";
         axios.post(BASEURL,
                   {"username": username,"password": password}, 
                   {headers: { "Access-Control-Allow-Origin": "*"}}
         ).then((resp)=>{
-         // console.log(resp);
-          let headersObj=resp.headers;
-          console.log(headersObj);
           if (typeof resp.data === "object" && (resp.data.success==="true" || resp.data.success===true)) { 
-          let token=resp.data.token;
-            setToken(token);
+           let userToken=resp.data.data.token;
+            setToken(userToken);
+            //console.log(" token : "+token + "\n userToken : "+userToken);
             onLogin();  
             alert('Login successful'); setError('');
           }else{
@@ -44,12 +42,12 @@ function Login({ onLogin }) {
       serverLogin();
 
       const getData = () => {
-        console.debug("get-Data");
+        console.debug("get-Data : "+token);
       const BASEURL = "http://localhost:5050/mastertemplate/api/user/";
-      axios.get(BASEURL, { headers: { 'Authorization': `Bearer `+token}, "Access-Control-Allow-Origin": "*"})
+      axios.get(BASEURL, { headers: { 'Authorization': `Bearer `+token, "Access-Control-Allow-Origin": "*"}})
       .then((resp)=>{
         console.log(resp)
-        debugger;
+       // debugger;
       })
       .catch((err)=>{console.error(err)});
       }
