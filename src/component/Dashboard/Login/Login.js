@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'
 import axios from 'axios';
-//import {SERVER_URL, URL_ADD_OR_UPDATE, URL_FETCH_NEXT_CHUNK, URL_MONTHLY_EXPANSE } from '../../utils/URL_CONSTANT';
+import { SERVER_BASE_URL, URL_USER_LOGIN } from '../../../Utils/URL_CONSTANT';
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -12,7 +12,7 @@ function Login({ onLogin }) {
     e.preventDefault();
   //{"success":true,"rc":"0","data":{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdW5pbCIsImV4cCI6MTY5NDM4NDE3MywiaWF0IjoxNjk0MzY2MTczfQ.XYnVwrceQE3hHruYkTVq4VDBHNKS2auX-cRcx9AtafoJYAV_3fDu16KYu92kgwASDQmM4r1w1sa2BPa-g_OYKA"}}
      const serverLogin = () => {
-        const BASEURL = "http://localhost:5050/mastertemplate/api/user/restapi-login";
+        const BASEURL = SERVER_BASE_URL+URL_USER_LOGIN;
         axios.post(BASEURL,
                   {"username": username,"password": password}, 
                   {headers: { "Access-Control-Allow-Origin": "*"}}
@@ -23,6 +23,7 @@ function Login({ onLogin }) {
             //console.log(" token : "+token + "\n userToken : "+userToken);
             onLogin();  
             alert('Login successful'); setError('');
+            getUserData();
           }else{
             alert('Login failed. Please check your credentials.'); 
             setError('Invalid username or password. Please try again.');
@@ -41,9 +42,9 @@ function Login({ onLogin }) {
       //login
       serverLogin();
 
-      const getData = () => {
+      const getUserData = () => {
         console.debug("get-Data : "+token);
-      const BASEURL = "http://localhost:5050/mastertemplate/api/user/";
+      const BASEURL = SERVER_BASE_URL+"/user/";
       axios.get(BASEURL, { headers: { 'Authorization': `Bearer `+token, "Access-Control-Allow-Origin": "*"}})
       .then((resp)=>{
         console.log(resp)
@@ -52,8 +53,6 @@ function Login({ onLogin }) {
       .catch((err)=>{console.error(err)});
       }
 
-      
-      getData();
 
 
   };

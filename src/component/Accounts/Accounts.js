@@ -1,14 +1,12 @@
-//import template from "./Accounts.jsx";
-import "./Accounts.css";
-import Table from 'react-bootstrap/Table';
-import axios from 'axios';
-import DateObject from "react-date-object";
 import React from 'react';
-import { data_fetch_account_list } from './../../DataSet/DataSet';
-import { SERVER_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_MONTHLY_EXPANSE, URL_FETCH_NEXT_CHUNK_MONTHLY_EXPANSE } from '../../utils/URL_CONSTANT';
+import "./Accounts.css";
+import axios from 'axios';
+import Table from 'react-bootstrap/Table';
+import DateObject from "react-date-object";
 import 'datatables.net-responsive-dt';
 import DataTable from 'datatables.net-dt';
- 
+import { data_fetch_account_list } from './../../DataSet/DataSet';
+import { SERVER_BASE_URL, URL_ADD_MONTHLY_EXPANSE, URL_FETCH_NEXT_CHUNK_MONTHLY_EXPANSE} from '../../Utils/URL_CONSTANT';
 let table = new DataTable('#accounts_table', {
   retrieve: true, 
   responsive: true
@@ -97,7 +95,7 @@ class Accounts extends React.Component {
 
   //Fetch API for calling 
   fetchAccountsData = () => {
-    axios.get(SERVER_URL + URL_FETCH_NEXT_CHUNK_MONTHLY_EXPANSE+"/0/20" )
+    axios.get(SERVER_BASE_URL + URL_FETCH_NEXT_CHUNK_MONTHLY_EXPANSE+"/0/20" )
       .then((result) => {
         //console.log((new DateObject(1678092003000)).format());
         let resObj = result.data.data;
@@ -139,7 +137,7 @@ class Accounts extends React.Component {
     }
     this.setState({ items: this.state.items.concat(formData) });
     //FETCH-API URL.
-    fetch(SERVER_URL + URL_ADD_MONTHLY_EXPANSE, {
+    fetch(SERVER_BASE_URL + URL_ADD_MONTHLY_EXPANSE, {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: {

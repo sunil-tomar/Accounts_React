@@ -16,8 +16,7 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
-import {PRODUCT_IMG_URL} from '../../utils/URL_CONSTANT';
-//import { FileUpload } from 'primereact/fileupload';
+import { PRODUCT_IMG_URL } from '../../Utils/URL_CONSTANT.js';
 
 export default function Product() {
   let emptyProduct = {
