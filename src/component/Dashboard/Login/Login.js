@@ -10,50 +10,44 @@ function Login({ onLogin }) {
   const [error, setError] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
-  //{"success":true,"rc":"0","data":{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdW5pbCIsImV4cCI6MTY5NDM4NDE3MywiaWF0IjoxNjk0MzY2MTczfQ.XYnVwrceQE3hHruYkTVq4VDBHNKS2auX-cRcx9AtafoJYAV_3fDu16KYu92kgwASDQmM4r1w1sa2BPa-g_OYKA"}}
-     const serverLogin = () => {
+  
+    const getUsersData = async () => {
+        try {  
+          const BASEURL = SERVER_BASE_URL+"/user/";
+          const response = await axios.get(BASEURL);
+          // Handle the response data
+          console.log('Users Data:', response.data);
+        } catch (error) {
+          console.error('Failed to fetch users data:', error.message);
+        }
+      };
+
+
+  const login = async (username, password) => {
+        console.log(" usernmae : "+username + "password : "+password);
         const BASEURL = SERVER_BASE_URL+URL_USER_LOGIN;
-        axios.post(BASEURL,
-                  {"username": username,"password": password}, 
-                  {headers: { "Access-Control-Allow-Origin": "*"}}
-        ).then((resp)=>{
-          if (typeof resp.data === "object" && (resp.data.success==="true" || resp.data.success===true)) { 
-           let userToken=resp.data.data.token;
-            setToken(userToken);
-            //console.log(" token : "+token + "\n userToken : "+userToken);
-            onLogin();  
-            alert('Login successful'); setError('');
-            getUserData();
-          }else{
-            alert('Login failed. Please check your credentials.'); 
-            setError('Invalid username or password. Please try again.');
-          }
-        })
-        .catch((err)=>{
-          alert('Login failed. Please check your credentials.'); 
-          setError('Invalid username or password. Please try again.');
-          console.error(err)
-            setToken("");
-           // onLogin(false);
-        });
-        
-      }
+        try {
+          const response = await axios.post(BASEURL, {username, password} );
+            if (response.data.success) {
+              // If successful, return the response data or token.
+              onLogin();  
+              
+              // Call the function to fetch user data after logging in
+              getUsersData();
+              return response.data;
+            } else {
+      // Handle login failure.
+      throw new Error('Login failed');
+    }
+          console.log('Login successful');
+        } catch (error) {
+          console.error('Login failed:', error.message);
+        }
+      };
+      
+      login(username, password); //login
 
-      //login
-      serverLogin();
-
-      const getUserData = () => {
-        console.debug("get-Data : "+token);
-      const BASEURL = SERVER_BASE_URL+"/user/";
-      axios.get(BASEURL, { headers: { 'Authorization': `Bearer `+token, "Access-Control-Allow-Origin": "*"}})
-      .then((resp)=>{
-        console.log(resp)
-       // debugger;
-      })
-      .catch((err)=>{console.error(err)});
-      }
-
-
+      
 
   };
 return (
@@ -85,19 +79,3 @@ return (
 }
 export default Login;
 
-
-
-/*
-const loginAPI = () => {
-  alert("get-login");
-  const url = "http://localhost:5050/mastertemplate/api";
-  const requestOptions = {
-      method: 'POST',
-      headers: {"Access-Control-Allow-Origin": url,'Content-Type': 'application/json'},
-      body: JSON.stringify({'username': 'sunil', 'password':'test'})
-  }
-  fetch(url+"/user/login", requestOptions)
-  .then(response => console.log('Submitted successfully'))
-  .catch(error => console.log('Form submit error', error))
-    alert("Thank you for contacting Accounts App. We will contact you shortly.");
-}*/
