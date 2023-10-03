@@ -45,9 +45,12 @@ function Login({ onLogin }) {
         }
       };
       
-      login(username, password); //login
-
+     // login(username, password); //login
       
+     //This Code is kept as sample for development which is simple login with calling any APIs.
+      if(username=='sunil' && password=='test'){
+        onLogin();   
+      }
 
   };
 return (
