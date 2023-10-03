@@ -14,7 +14,7 @@ function Login({ onLogin }) {
     const getUsersData = async () => {
         try {  
           const BASEURL = SERVER_BASE_URL+"/user/";
-          const response = await axios.get(BASEURL);
+          const response = await axios.get(BASEURL, { withCredentials: true});
           // Handle the response data
           console.log('Users Data:', response.data);
         } catch (error) {
