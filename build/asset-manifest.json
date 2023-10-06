@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4e8a8e1f.css",
+    "main.js": "/static/js/main.da264d8d.js",
+    "static/js/787.da11a42f.chunk.js": "/static/js/787.da11a42f.chunk.js",
+    "static/media/siver-welcome-on-banner.webp": "/static/media/siver-welcome-on-banner.89b84e9e200561aee008.webp",
+    "index.html": "/index.html",
+    "main.4e8a8e1f.css.map": "/static/css/main.4e8a8e1f.css.map",
+    "main.da264d8d.js.map": "/static/js/main.da264d8d.js.map",
+    "787.da11a42f.chunk.js.map": "/static/js/787.da11a42f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e8a8e1f.css",
+    "static/js/main.da264d8d.js"
+  ]
+}

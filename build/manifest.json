@@ -1,0 +1,25 @@
+{
+  "short_name": "Accounts",
+  "name": "Create Accounts App for ledger",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "100x100 64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "accountslogo200.png",
+      "type": "image/png",
+      "sizes": "200x200"
+    },
+    {
+      "src": "accountslogo500.png",
+      "type": "image/png",
+      "sizes": "500x500"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
